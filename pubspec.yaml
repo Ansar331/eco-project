@@ -37,8 +37,13 @@ flutter:
     - assets/photo_2.jpeg
     - assets/photo_3.jpeg
     - assets/photo_4.jpeg
-    - assets/photo_map.png
-    - assets/photo_camera.png
+    - assets/glass_photo.jpeg
+    - assets/paper_photo.jpeg
+    - assets/plastic_photo.jpeg
+    - assets/metal_photo.jpeg
+    - assets/medical_photo.jpeg
+    - assets/elec_photo.jpeg
+    - assets/tetra_photo.jpg
     - assets/map_style.json
     - assets/labels.txt
     - assets/model_unquant.tflite

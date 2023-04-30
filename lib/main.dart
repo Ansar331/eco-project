@@ -1,7 +1,4 @@
-import 'dart:io';
-
 import 'styles.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +7,49 @@ import 'app.dart';
 void main() {
   runApp(const MyApp());
 }
+
+class NavigationService {
+  /// Creating the first instance
+  static final NavigationService _instance = NavigationService._internal();
+  NavigationService._internal();
+
+  /// With this factory setup, any time  NavigationService() is called
+  /// within the appication _instance will be returned and not a new instance
+  factory NavigationService() => _instance;
+
+  ///This would allow the app monitor the current screen state during navigation.
+  ///
+  ///This is where the singleton setup we did
+  ///would help as the state is internally maintained
+  final GlobalKey<NavigatorState> navigationKey = GlobalKey<NavigatorState>();
+
+  /// For navigating back to the previous screen
+  dynamic goBack([dynamic popValue]) {
+    return navigationKey.currentState?.pop(popValue);
+  }
+
+  /// This allows you to naviagte to the next screen by passing the screen widget
+  Future<dynamic> navigateToScreen(Widget page, {arguments}) async => navigationKey.currentState?.push(
+    MaterialPageRoute(
+      builder: (_) => page,
+    ),
+  );
+
+  /// This allows you to naviagte to the next screen and
+  /// also replace the current screen by passing the screen widget
+  Future<dynamic> replaceScreen(Widget page, {arguments}) async => navigationKey.currentState?.pushReplacement(
+    MaterialPageRoute(
+      builder: (_) => page,
+    ),
+  );
+
+  /// Allows you to pop to the first screen to when the app first launched.
+  /// This is useful when you need to log out a user,
+  /// and also remove all the screens on the navigation stack.
+  /// I find this very useful
+  void popToFirst() => navigationKey.currentState?.popUntil((route) => route.isFirst);
+}
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -23,6 +63,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'SortAI'),
       debugShowCheckedModeBanner: false,
+      navigatorKey: NavigationService().navigationKey,
     );
   }
 }
@@ -58,117 +99,129 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _buildBodyWidget(int widgetType) {
     switch (widgetType) {
       case 0:
-        return Container(
-          color: Colors.lightGreen.shade50,
-          width: double.infinity,
-           child: Column(
-             mainAxisSize: MainAxisSize.max,
-              children: [
-                Spacer(),
-                SizedBox(
-                    width: 250,
-                    height: 50,
-                    child: ElevatedButton(
-                        onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyPlasticPage()));},
-                        child: Center(
-                          child: (
-                              Text('Plastic',
-                                  style: const TextStyle(
-                                    fontFamily: kButtonFont,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w600,
-                                  )
-                              )),
-                        ))),
-                const Spacer(),
-
-                SizedBox(
-                    width: 250,
-                    height: 50,
-                    child: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyPaperPage()));},
-                        child: Center(
-                          child: (
-                              Text('Paper',
-                                  style: const TextStyle(
-                                    fontFamily: kButtonFont,
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.w600,
-                                  )
-                              )),
-                        )))
-
-                ,
-                const Spacer(),
-
-
-                Container(
-                    width: 250,
-                    height: 50,
-                    color: Colors.lightBlueAccent,
-                    child: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyGlassPage()));},
-
-                    child: Center(
-                      child: (
-                          Text('Glass',
-                              style: const TextStyle(
-                                fontFamily: kButtonFont,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                              )
+        return Scaffold(
+            body: SingleChildScrollView(
+                child: Container(
+                  width: double.infinity,
+                  child: Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/plastic_photo.jpeg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                        width: 150, height: 30,
+                        child: ElevatedButton(
+                            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MainPlastic()));},
+                            child: Center(
+                              child: (
+                                  Text('Plastic', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                  )),
+                            ))),
+                    //
+                    SizedBox(height: 50.0,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/paper_photo.jpeg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                      width: 140, height: 30,
+                      child: ElevatedButton(
+                          onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyPaperPage()));},
+                          child: Center(
+                            child: (
+                                Text('Paper', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                )),
                           )),
-                    ))
-                ),
-    Spacer(),
-    SizedBox(
-    width: 250,
-    height: 50,
-    child: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyEWastePage()));},
-    child: Center(
-    child: (
-    Text('E-Waste',
-    style: const TextStyle(
-    fontFamily: kButtonFont,
-    fontSize: 20.0,
-    fontWeight: FontWeight.w600,
-    )
-    )),
-    ))
-                ),
-                Spacer(),
-                SizedBox(
-                width: 250,
-                height: 50,
-    child: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyMedicalPage()));},
-    child: Center(
-    child: (
-    Text('Medical Waste',
-    style: const TextStyle(
-    fontFamily: kButtonFont,
-    fontSize: 20.0,
-    fontWeight: FontWeight.w600,
-    )
-    )),
-    ))
-                ),
-                Spacer(),
-                SizedBox(
-                width: 250,
-                height: 50,
-    child: ElevatedButton(onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyMetalPage()));},
-    child: Center(
-    child: (
-    Text('Metal',
-    style: const TextStyle(
-    fontFamily: kButtonFont,
-    fontSize: 20.0,
-    fontWeight: FontWeight.w600,
-    )
-    )),
-    ))
-                ),
-                Spacer(),
-              ],
-            ),
+                    ),
+                    SizedBox(height: 50.0,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/glass_photo.jpeg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                        width: 150, height: 30,
+                        child: ElevatedButton(
+                            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MainGlass()));},
+                            child: Center(
+                              child: (
+                                  Text('Glass', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                  )),
+                            ))),
+                    SizedBox(height: 50.0,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/elec_photo.jpeg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                        width: 150, height: 30,
+                        child: ElevatedButton(
+                            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MainEWaste()));},
+                            child: Center(
+                              child: (
+                                  Text('E-Waste', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                  )),
+                            ))),
+                    SizedBox(height: 50.0,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/medical_photo.jpeg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                        width: 150, height: 30,
+                        child: ElevatedButton(
+                            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyMedicalPage()));},
+                            child: Center(
+                              child: (
+                                  Text('Medical', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                  )),
+                            ))),
+                    SizedBox(height: 50.0,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/metal_photo.jpeg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                        width: 150, height: 30,
+                        child: ElevatedButton(
+                            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MainMetal()));},
+                            child: Center(
+                              child: (
+                                  Text('Metal', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                  )),
+                            ))),
+                    SizedBox(height: 50.0,),
+                    Container(
+                      alignment: Alignment.center,
+                      child: Image.asset("assets/tetra_photo.jpg"),
+                      height: 150,
+                      width: 150,
+                    ),
+                    Container(
+                        width: 150, height: 30,
+                        child: ElevatedButton(
+                            onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyTetraPakPage()));},
+                            child: Center(
+                              child: (
+                                  Text('Tetra Pak', style: const TextStyle(fontFamily: kButtonFont, fontSize: 18.0, fontWeight: FontWeight.w600,)
+                                  )),
+                            ))),
+                ],
+              ),
+            )
+            )
         );
 
       case 1:
@@ -217,6 +270,8 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+
 
 class Map extends StatelessWidget {
   const Map({Key? key}) : super(key: key);
@@ -269,7 +324,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Прием вторсырья',
               snippet:
-              ['Центр по переработке отходов', '+77017442643', 'улица Казыбаева 26, Алматы'].join(", "),
+              ['Центр по переработке отходов', '+77017442643', 'улица Казыбаева 26', 'Алматы\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(", "),
             )
           // To do: custom marker icon
         ),
@@ -280,7 +335,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ТОО "КазМакТрейд" пункт приема макулатуры и пластика',
               snippet:
-              ['Центр по переработке отходов', '+77777072021', 'Ырысты 15 а, Алматы'].join(", "),
+              ['Центр по переработке отходов', '+77777072021\n', 'Ырысты 15 а', 'Алматы\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(", "),
             )
         ),
 
@@ -294,7 +349,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ТОО "Технология А"',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '+77774975555', 'Алматы 050007'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '+77774975555\n', 'Алматы 050007\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
           // To do: custom marker icon
         ),
@@ -305,7 +360,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ТОО "EcoLog Kazakhstan"',
               snippet:
-              ['Центр по переработке отходов', '+77773333444', 'ул. Серикова 61, Алматы 050000'].join(', '),
+              ['Центр по переработке отходов', '+77773333444\n', 'ул. Серикова 61, Алматы 050000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
         Marker(
@@ -314,7 +369,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Kazakhstan Waste Recycling',
               snippet:
-              ['KWR', '+77272458143', 'ул. Исиналиева 2б, Алматы'].join(', '),
+              ['KWR', '+77272458143\n', 'ул. Исиналиева 2б, Алматы\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -324,7 +379,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Ассоциация "Kaz-Waste"',
               snippet:
-              ['Ассоциация или организация', '+77272558778', 'пр-т. Сейфуллина 597, Алматы 050022'].join(', '),
+              ['Ассоциация или организация', '+77272558778\n', 'пр-т. Сейфуллина 597, Алматы 050022\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -334,7 +389,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Ecosen',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '10:00-19:00', 'Розыбакиев көшесі 247/3, Алматы 050060'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '10:00-19:00\n', 'Розыбакиев көшесі 247/3, Алматы 050060\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -345,7 +400,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ПРИЕМ МАКУЛАТУРЫ В ШЫМКЕНТЕ №1 | САМОВЫВОЗ |',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–19:00', 'ул. Гагарина 112Б, Шымкент 160000'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '09:00–19:00\n', 'ул. Гагарина 112Б, Шымкент 160000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -355,7 +410,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Прием Макулатуры',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–19:00', 'ул. Гагарина 112Б, Шымкент 160000'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '09:00–19:00\n', 'ул. Гагарина 112Б, Шымкент 160000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -365,7 +420,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Taza',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–18:00', 'A 369, 10/4, Астана'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '09:00–18:00\n', 'A 369, 10/4, Астана\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
 
 
@@ -377,7 +432,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ПРИЕМ МАКУЛАТУРЫ В НУР-СУЛТАН',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '+77029607755', 'ул. Өндіріс, 85/1, Астана 010000'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '+77029607755\n', 'ул. Өндіріс, 85/1, Астана 010000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
 
 
@@ -389,7 +444,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Taza Qala',
               snippet:
-              ['Центр по переработке отходов', '+77019900694', 'пр-т. Мангилик Ел. 50, Астана 020000'].join(', '),
+              ['Центр по переработке отходов', '+77019900694\n', 'пр-т. Мангилик Ел. 50, Астана 020000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
 
 
@@ -397,6 +452,54 @@ class _CustomMapState extends State<CustomMap> {
       },
     );
   }}
+
+class MainPlastic extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext){
+    return Scaffold(
+        appBar: AppBar(title: Text("SortAI"),),
+        body: Center(
+            child: Column(
+                children: <Widget>[
+                  Spacer(),
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyPlasticPage());},
+                          child: Center(
+                            child: (
+                                Text('foam plastic', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyPlasticPage());},
+                          child: Center(
+                            child: (
+                                Text('packages', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+
+                  Container(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyPlasticPage());},
+                          child: Center(
+                            child: (
+                                Text('plastic tableware', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  Spacer(),
+                  ])));
+  }
+}
+
 class MyPlasticPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
@@ -459,10 +562,55 @@ class MyPaperPage extends StatelessWidget{
     )
     )
     );
-
-
   }
 }
+
+class MainGlass extends StatelessWidget{
+  @override
+  Widget build(BuildContext){
+    return Scaffold(
+        appBar: AppBar(title: Text("SortAI"),),
+        body: Center(
+            child: Column(
+                children: <Widget>[
+                  Spacer(),
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyGlassPage());},
+                          child: Center(
+                            child: (
+                                Text('Lamp', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyGlassPage());},
+                          child: Center(
+                            child: (
+                                Text('Glassware', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+
+                  Container(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyGlassPage());},
+                          child: Center(
+                            child: (
+                                Text('Ceramics', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  Spacer(),
+                ])));
+  }
+}
+
 class MyGlassPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
@@ -491,6 +639,62 @@ class MyGlassPage extends StatelessWidget{
         ]
       ),
     ));
+  }
+}
+class MainEWaste extends StatelessWidget{
+  @override
+  Widget build(BuildContext){
+    return Scaffold(
+        appBar: AppBar(title: Text("SortAI"),),
+        body: Center(
+            child: Column(
+                children: <Widget>[
+                  Spacer(),
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyEWastePage());},
+                          child: Center(
+                            child: (
+                                Text('Cable', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyEWastePage());},
+                          child: Center(
+                            child: (
+                                Text('Powersave lamp', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyEWastePage());},
+                          child: Center(
+                            child: (
+                                Text('Fluorescent Lamp', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+                  Container(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyEWastePage());},
+                          child: Center(
+                            child: (
+                                Text('LED lamp', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  Spacer(),
+                ])));
+
   }
 }
 class MyEWastePage extends StatelessWidget{
@@ -541,6 +745,51 @@ class MyEWastePage extends StatelessWidget{
     );
   }
 }
+class MainMetal extends StatelessWidget{
+  @override
+  Widget build(BuildContext){
+    return Scaffold(
+        appBar: AppBar(title: Text("SortAI"),),
+        body: Center(
+            child: Column(
+                children: <Widget>[
+                  Spacer(),
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyMetalPage());},
+                          child: Center(
+                            child: (
+                                Text('Foil', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+                  SizedBox(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyMetalPage());},
+                          child: Center(
+                            child: (
+                                Text('tincan', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  const Spacer(),
+
+
+                  Container(
+                      width: 250, height: 100,
+                      child: ElevatedButton(
+                          onPressed: (){NavigationService().replaceScreen(MyMetalPage());},
+                          child: Center(
+                            child: (
+                                Text('Aluminum can', style: const TextStyle(fontFamily: kButtonFont, fontSize: 20.0, fontWeight: FontWeight.w600,)
+                                )),
+                          ))),
+                  Spacer(),
+                ])));
+  }
+}
 class MyMetalPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
@@ -570,6 +819,7 @@ class MyMetalPage extends StatelessWidget{
     );
   }
 }
+
 class MyMedicalPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
@@ -599,6 +849,35 @@ class MyMedicalPage extends StatelessWidget{
 
     )]
     )
+      ),
+    );
+  }
+}
+class MyTetraPakPage extends StatelessWidget{
+  @override
+  Widget build(BuildContext){
+    return Scaffold(
+      appBar: AppBar(title: Text("sortAI"),),
+      body: Center(
+          child: Column(
+              children: <Widget>[
+                Container(
+                  alignment: Alignment.center,
+                  child: Image.asset("assets/photo_1.jpeg"),
+                  height: 300,
+                  width: 200,
+                ),
+                Container(
+                    child: Text("In Kazakhstan, packaging such as Tetra Pak, Pure-Pak, Elopak is processed at the Kazakhstan Waste Recycling paper mill. The paper layer is used to make new paper, and the plastic-aluminum mixture is used in the manufacture of tiles, hatches and is added to the asphalt surface. However, most locations do not accept this type of waste. If you find where they accept, then do not forget to rinse, dry and squeeze the package. If not, try reducing your intake.",
+                      style: const TextStyle(
+                        fontFamily: kButtonFont,
+                        fontSize: 14.0,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,)
+
+                )]
+          )
       ),
     );
   }
