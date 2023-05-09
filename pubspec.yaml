@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  clippy_flutter: ^1.1.1
   auto_route: ^2.3.2
   salomon_bottom_bar: ^3.1.0
   google_maps_flutter: ^2.2.5
@@ -18,6 +19,7 @@ dependencies:
   image: ^3.2.2
   collection: ^1.16.0
   tflite_flutter: ^0.9.0
+  custom_info_window: ^1.0.1
   tflite_flutter_helper:
     git:
       url: https://github.com/filofan1/tflite_flutter_helper.git
@@ -26,7 +28,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   auto_route_generator: ^2.3.2
   build_runner: ^2.1.2
@@ -47,3 +49,8 @@ flutter:
     - assets/map_style.json
     - assets/labels.txt
     - assets/model_unquant.tflite
+flutter_icons:
+  image_path_ios: 'assets/icon.jpeg'
+  image_path_android: 'assets/icon.jpeg'
+  android: true
+  ios: true

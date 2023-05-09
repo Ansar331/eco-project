@@ -2,6 +2,7 @@ import 'styles.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:custom_info_window/custom_info_window.dart';
 import 'app.dart';
 
 void main() {
@@ -324,7 +325,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Прием вторсырья',
               snippet:
-              ['Центр по переработке отходов', '+77017442643', 'улица Казыбаева 26', 'Алматы\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(", "),
+              ['Центр по переработке отходов', '+77017442643', 'улица Казыбаева 26', 'Алматы', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(", "),
             )
           // To do: custom marker icon
         ),
@@ -335,7 +336,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ТОО "КазМакТрейд" пункт приема макулатуры и пластика',
               snippet:
-              ['Центр по переработке отходов', '+77777072021\n', 'Ырысты 15 а', 'Алматы\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(", "),
+              ['Центр по переработке отходов', '+77777072021', 'Ырысты 15 а', 'Алматы', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(", "),
             )
         ),
 
@@ -349,7 +350,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ТОО "Технология А"',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '+77774975555\n', 'Алматы 050007\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '+77774975555', 'Алматы 050007', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
           // To do: custom marker icon
         ),
@@ -360,7 +361,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ТОО "EcoLog Kazakhstan"',
               snippet:
-              ['Центр по переработке отходов', '+77773333444\n', 'ул. Серикова 61, Алматы 050000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Центр по переработке отходов', '+77773333444', 'ул. Серикова 61, Алматы 050000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
         Marker(
@@ -369,7 +370,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Kazakhstan Waste Recycling',
               snippet:
-              ['KWR', '+77272458143\n', 'ул. Исиналиева 2б, Алматы\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['KWR', '+77272458143', 'ул. Исиналиева 2б, Алматы', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -379,7 +380,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Ассоциация "Kaz-Waste"',
               snippet:
-              ['Ассоциация или организация', '+77272558778\n', 'пр-т. Сейфуллина 597, Алматы 050022\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Ассоциация или организация', '+77272558778', 'пр-т. Сейфуллина 597, Алматы 050022', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -389,7 +390,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Ecosen',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '10:00-19:00\n', 'Розыбакиев көшесі 247/3, Алматы 050060\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '10:00-19:00', 'Розыбакиев көшесі 247/3, Алматы 050060', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -400,7 +401,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ПРИЕМ МАКУЛАТУРЫ В ШЫМКЕНТЕ №1 | САМОВЫВОЗ |',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–19:00\n', 'ул. Гагарина 112Б, Шымкент 160000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '09:00–19:00', 'ул. Гагарина 112Б, Шымкент 160000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -410,7 +411,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Прием Макулатуры',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–19:00\n', 'ул. Гагарина 112Б, Шымкент 160000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '09:00–19:00', 'ул. Гагарина 112Б, Шымкент 160000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
         ),
 
@@ -420,7 +421,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Taza',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–18:00\n', 'A 369, 10/4, Астана\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '09:00–18:00', 'A 369, 10/4, Астана', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
 
 
@@ -432,7 +433,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'ПРИЕМ МАКУЛАТУРЫ В НУР-СУЛТАН',
               snippet:
-              ['Пункт приёма перерабатываемых отходов', '+77029607755\n', 'ул. Өндіріс, 85/1, Астана 010000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Пункт приёма перерабатываемых отходов', '+77029607755', 'ул. Өндіріс, 85/1, Астана 010000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
 
 
@@ -444,7 +445,7 @@ class _CustomMapState extends State<CustomMap> {
             infoWindow: InfoWindow(
               title: 'Taza Qala',
               snippet:
-              ['Центр по переработке отходов', '+77019900694\n', 'пр-т. Мангилик Ел. 50, Астана 020000\n', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо\n', 'ткани', 'пластик', 'органические отходы'].join(', '),
+              ['Центр по переработке отходов', '+77019900694', 'пр-т. Мангилик Ел. 50, Астана 020000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
             )
 
 
@@ -458,7 +459,17 @@ class MainPlastic extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),),
+        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
         body: Center(
             child: Column(
                 children: <Widget>[
@@ -504,7 +515,17 @@ class MyPlasticPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),),
+        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
       body: Center(
       child: Column(
       children: <Widget>[
@@ -534,7 +555,17 @@ class MyPaperPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),),
+        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
     body: Center(
     child: Column(
     children: <Widget>[
@@ -569,7 +600,17 @@ class MainGlass extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),),
+        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
         body: Center(
             child: Column(
                 children: <Widget>[
@@ -615,7 +656,17 @@ class MyGlassPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),),
+      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // do something
+          },
+        )
+      ],),
     body: Center(
     child: Column(
     children: <Widget>[
@@ -645,7 +696,17 @@ class MainEWaste extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),),
+        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
         body: Center(
             child: Column(
                 children: <Widget>[
@@ -701,7 +762,17 @@ class MyEWastePage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),),
+      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // do something
+          },
+        )
+      ],),
     body: Center(
     child: Column(
     children: <Widget>[
@@ -749,7 +820,17 @@ class MainMetal extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),),
+        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
         body: Center(
             child: Column(
                 children: <Widget>[
@@ -794,7 +875,17 @@ class MyMetalPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("sortAI"),),
+        appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              // do something
+            },
+          )
+        ],),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -824,7 +915,17 @@ class MyMedicalPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),),
+      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // do something
+          },
+        )
+      ],),
     body: Center(
     child: Column(
     children: <Widget>[
@@ -857,7 +958,17 @@ class MyTetraPakPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),),
+      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+        IconButton(
+          icon: Icon(
+            Icons.settings,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            // do something
+          },
+        )
+      ],),
       body: Center(
           child: Column(
               children: <Widget>[
