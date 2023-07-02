@@ -1,9 +1,12 @@
+import 'package:label_marker/label_marker.dart';
+
 import 'styles.dart';
 import 'package:flutter/services.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:custom_info_window/custom_info_window.dart';
 import 'app.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -58,11 +61,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'sortAI',
+      title: 'Atomic Team',
       theme: ThemeData(
         primarySwatch: Colors.green
       ),
-      home: const MyHomePage(title: 'SortAI'),
+      home: const MyHomePage(title: 'Atomic Team'),
       debugShowCheckedModeBanner: false,
       navigatorKey: NavigationService().navigationKey,
     );
@@ -225,12 +228,12 @@ class _MyHomePageState extends State<MyHomePage> {
             )
         );
 
-      case 1:
+      case 2:
         return MaterialApp(
           home: const MainApp(),
           debugShowCheckedModeBanner: false,
         );
-      case 2:
+      case 1:
         return MaterialApp(
           home: const Map(),
           debugShowCheckedModeBanner: false,
@@ -255,10 +258,10 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.info),
             label: 'Info',
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.camera),
-            label: 'Camera',
-          ),
+          // BottomNavigationBarItem(
+          //   icon: Icon(Icons.camera),
+          //   label: 'Camera',
+          // ),
           BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: 'Map',
@@ -293,6 +296,9 @@ class CustomMap extends StatefulWidget {
 }
 
 class _CustomMapState extends State<CustomMap> {
+  // Set<Marker> markers = {};
+
+
   GoogleMapController? _controller;
   static const LatLng _center = LatLng(43.250000, 76.900000);
 
@@ -314,144 +320,298 @@ class _CustomMapState extends State<CustomMap> {
         target: _center,
         zoom: 12,
       ),
-      markers: {
-        Marker(
-            markerId: const MarkerId('marker1'),
-            position: const LatLng(43.283238028738154, 76.91747813647363),
-            draggable: true,
-            onDragEnd: (value) {
-              // value is the new position
-            },
-            infoWindow: InfoWindow(
-              title: 'Прием вторсырья',
-              snippet:
-              ['Центр по переработке отходов', '+77017442643', 'улица Казыбаева 26', 'Алматы', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(", "),
-            )
-          // To do: custom marker icon
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker2'),
-            position: const LatLng(43.29501417896099, 76.85756449315723),
-            infoWindow: InfoWindow(
-              title: 'ТОО "КазМакТрейд" пункт приема макулатуры и пластика',
-              snippet:
-              ['Центр по переработке отходов', '+77777072021', 'Ырысты 15 а', 'Алматы', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(", "),
-            )
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker3'),
-            position: const LatLng(43.36833290321793, 76.93757297515965),
-            draggable: true,
-            onDragEnd: (value) {
-              // value is the new position
-            },
-            infoWindow: InfoWindow(
-              title: 'ТОО "Технология А"',
-              snippet:
-              ['Пункт приёма перерабатываемых отходов', '+77774975555', 'Алматы 050007', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-          // To do: custom marker icon
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker6'),
-            position: const LatLng(37.415768808487435, -122.08440050482749),
-            infoWindow: InfoWindow(
-              title: 'ТОО "EcoLog Kazakhstan"',
-              snippet:
-              ['Центр по переработке отходов', '+77773333444', 'ул. Серикова 61, Алматы 050000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-        ),
-        Marker(
-            markerId: const MarkerId('marker8'),
-            position: const LatLng(43.20949468491954, 76.90803293181897),
-            infoWindow: InfoWindow(
-              title: 'Kazakhstan Waste Recycling',
-              snippet:
-              ['KWR', '+77272458143', 'ул. Исиналиева 2б, Алматы', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(43.25251949960636, 76.93275216809252),
-            infoWindow: InfoWindow(
-              title: 'Ассоциация "Kaz-Waste"',
-              snippet:
-              ['Ассоциация или организация', '+77272558778', 'пр-т. Сейфуллина 597, Алматы 050022', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(43.25251949960636, 76.93275216809252),
-            infoWindow: InfoWindow(
-              title: 'Ecosen',
-              snippet:
-              ['Пункт приёма перерабатываемых отходов', '10:00-19:00', 'Розыбакиев көшесі 247/3, Алматы 050060', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-        ),
+    markers: {
 
 
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(42.31444798717531, 69.5596636515622),
-            infoWindow: InfoWindow(
-              title: 'ПРИЕМ МАКУЛАТУРЫ В ШЫМКЕНТЕ №1 | САМОВЫВОЗ |',
-              snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–19:00', 'ул. Гагарина 112Б, Шымкент 160000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(42.31444798717531, 69.5596636515622),
-            infoWindow: InfoWindow(
-              title: 'Прием Макулатуры',
-              snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–19:00', 'ул. Гагарина 112Б, Шымкент 160000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(51.16561886811891, 71.46865135199161),
-            infoWindow: InfoWindow(
-              title: 'Taza',
-              snippet:
-              ['Пункт приёма перерабатываемых отходов', '09:00–18:00', 'A 369, 10/4, Астана', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-
-
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(51.22284989303371, 71.39449364317097),
-            infoWindow: InfoWindow(
-              title: 'ПРИЕМ МАКУЛАТУРЫ В НУР-СУЛТАН',
-              snippet:
-              ['Пункт приёма перерабатываемых отходов', '+77029607755', 'ул. Өндіріс, 85/1, Астана 010000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-
-
-        ),
-
-        Marker(
-            markerId: const MarkerId('marker10'),
-            position: const LatLng(51.10011749163738, 71.41794572954088),
-            infoWindow: InfoWindow(
-              title: 'Taza Qala',
-              snippet:
-              ['Центр по переработке отходов', '+77019900694', 'пр-т. Мангилик Ел. 50, Астана 020000', 'стекло', 'бумага', 'алюминий', 'асфальт', 'железо', 'ткани', 'пластик', 'органические отходы'].join(', '),
-            )
-
-
-        ),
-      },
-    );
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.313, 76.939),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['118'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.224, 76.938),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['91'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.24, 76.874),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['115'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.265, 76.973),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['88'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.253, 76.91),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['95'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.214, 76.893),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['90'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.296, 76.844),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['89'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.254, 76.82),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['84'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.174, 76.917),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['80'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.248, 76.949),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['112'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.189, 76.868),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['96'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.177, 76.966),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['93'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.269, 76.944),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['110'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.216, 76.848),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['106'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.231, 76.754),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['95'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.397, 77.027),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['119'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.195, 76.915),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['84'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.172, 76.736),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['104'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.369, 76.987),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['106'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.337, 76.904),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['92'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.354, 77.457),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['104'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.356, 77.467),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['106'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.177, 76.943),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['103'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.241, 76.96),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['112'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.214, 76.75),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['86'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.297, 76.852),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['80'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.299, 76.792),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['101'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.312, 77.001),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['111'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.206, 76.9),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['103'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.31, 76.943),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['83'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.213, 76.846),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['113'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.1855, 76.8716),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['116'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.254, 76.855),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['111'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.2795, 76.9677),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['100'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.223, 76.919),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['97'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.3526, 76.9993),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['89'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.2576, 76.9484),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['98'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(49.628, 72.986),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['98'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(49.628, 73.046),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['100'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(43.178, 76.87),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['114'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.324, 76.919),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['91'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.202, 76.812),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['84'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.248, 76.981),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['95'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.158, 76.902),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['106'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueRed
+      ),      position: const LatLng(49.628, 73.016),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['119'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueYellow
+      ),      position: const LatLng(43.23, 76.9326),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['94'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueOrange
+      ),      position: const LatLng(43.3388, 76.9032),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['102'].join(", "),    )),
+      Marker(
+          markerId: const MarkerId('marker1'), icon: BitmapDescriptor.defaultMarkerWithHue(
+          BitmapDescriptor.hueGreen
+      ),      position: const LatLng(43.2572, 76.914),    draggable: true,    infoWindow: InfoWindow(
+        title: 'Уровень загрязнения',      snippet:
+      ['81'].join(", "),    )),
+    });
   }}
 
 class MainPlastic extends StatelessWidget{
@@ -459,7 +619,7 @@ class MainPlastic extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -515,7 +675,7 @@ class MyPlasticPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -555,7 +715,7 @@ class MyPaperPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -600,7 +760,7 @@ class MainGlass extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -656,7 +816,7 @@ class MyGlassPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+      appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.settings,
@@ -696,7 +856,7 @@ class MainEWaste extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -762,7 +922,7 @@ class MyEWastePage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+      appBar: AppBar(title: Text("Atomic team"),actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.settings,
@@ -820,7 +980,7 @@ class MainMetal extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("SortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -875,7 +1035,7 @@ class MyMetalPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-        appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+        appBar: AppBar(title: Text("Atomic team"),actions: <Widget>[
           IconButton(
             icon: Icon(
               Icons.settings,
@@ -915,7 +1075,7 @@ class MyMedicalPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+      appBar: AppBar(title: Text("Atomic team"),actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.settings,
@@ -958,7 +1118,7 @@ class MyTetraPakPage extends StatelessWidget{
   @override
   Widget build(BuildContext){
     return Scaffold(
-      appBar: AppBar(title: Text("sortAI"),actions: <Widget>[
+      appBar: AppBar(title: Text("Atomic Team"),actions: <Widget>[
         IconButton(
           icon: Icon(
             Icons.settings,
